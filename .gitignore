@@ -1,0 +1,16 @@
+bin/
+obj/
+.vs/
+*.user
+.env
+backups/
+node_modules/
+web/dist/
+docs/_build/node_modules/
+docs/_build/.edge-profile/
+docs/_build/tmp/
+appsettings.Local.json
+TestResults/
+local/
+.claude/
+~$*
