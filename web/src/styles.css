@@ -1,0 +1,97 @@
+/* Руководство по стилю ИС «СервисДеск» (ТЗ, п. 5.5) */
+:root {
+  --bg: #F4F6F8;
+  --card: #FFFFFF;
+  --navy: #1B2A41;
+  --navy-2: #24344F;
+  --accent: #2D6CDF;
+  --accent-hover: #2559B8;
+  --accent-active: #1E4794;
+  --text: #212121;
+  --muted: #7A8794;
+  --line: #E3E8EE;
+  --danger: #E74C3C;
+  --overdue: #C0392B;
+  --success: #27AE60;
+  --radius: 8px;
+  --radius-btn: 6px;
+  --shadow: 0 1px 3px rgba(27, 42, 65, .08), 0 4px 14px rgba(27, 42, 65, .06);
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--bg);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; background: var(--bg); }
+body { -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-hover); }
+h1, h2, h3 { font-weight: 600; margin: 0; }
+h1 { font-size: 22px; }
+h2 { font-size: 18px; }
+h3 { font-size: 15px; }
+
+.page { max-width: 960px; margin: 0 auto; padding: 24px 24px 48px; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+  padding: 20px;
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 44px; padding: 0 20px; border: 0; border-radius: var(--radius-btn);
+  font: inherit; font-weight: 600; cursor: pointer; transition: background .15s, box-shadow .15s;
+  background: var(--accent); color: #fff;
+}
+.btn:hover { background: var(--accent-hover); }
+.btn:active { background: var(--accent-active); }
+.btn:disabled { opacity: .6; cursor: default; }
+.btn.block { width: 100%; }
+.btn.outline { background: #fff; color: var(--accent); border: 1px solid var(--accent); }
+.btn.outline:hover { background: #EEF3FD; }
+.btn.ghost { background: transparent; color: var(--muted); }
+.btn.ghost:hover { background: #E9EDF2; color: var(--text); }
+.btn.success { background: var(--success); }
+.btn.success:hover { background: #229954; }
+.btn.danger { background: var(--danger); }
+.btn.danger:hover { background: #CF3F30; }
+.btn.small { height: 34px; padding: 0 14px; font-size: 13px; }
+
+.field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+.field label { font-size: 13px; color: var(--muted); }
+.input {
+  height: 44px; padding: 0 14px; border: 1px solid #D5DCE4; border-radius: var(--radius-btn);
+  font: inherit; color: var(--text); background: #fff; outline: none; transition: border-color .15s, box-shadow .15s;
+}
+.input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(45, 108, 223, .15); }
+textarea.input { width: 100%; height: auto; min-height: 80px; padding: 10px 14px; resize: vertical; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+.error-box { background: #FDECEA; color: #A93226; border-radius: var(--radius-btn); padding: 10px 14px; margin-bottom: 14px; font-size: 13px; }
+.info-box { background: #EEF3FD; color: #1E4794; border-radius: var(--radius-btn); padding: 10px 14px; margin-bottom: 14px; font-size: 13px; }
+
+.empty { text-align: center; padding: 40px 20px; color: var(--muted); }
+.spinner {
+  width: 28px; height: 28px; border: 3px solid #D5DCE4; border-top-color: var(--accent); border-radius: 50%;
+  animation: spin .8s linear infinite; margin: 40px auto;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Контрольные точки адаптивности: 1200, 768, 480 */
+@media (max-width: 1200px) { .page { max-width: 900px; } }
+@media (max-width: 768px) {
+  .page { padding: 16px 16px 40px; }
+  .card { padding: 16px; }
+}
+@media (max-width: 480px) {
+  :root { font-size: 14px; }
+  .row { grid-template-columns: 1fr; gap: 0; }
+  h1 { font-size: 20px; }
+}
