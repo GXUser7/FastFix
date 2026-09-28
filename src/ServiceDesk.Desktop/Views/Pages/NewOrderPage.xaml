@@ -1,0 +1,133 @@
+<Page x:Class="ServiceDesk.Desktop.Views.Pages.NewOrderPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Новая заявка">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="24" MaxWidth="1200">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.ColumnSpan="3" Text="Новая заявка. Приём устройства" Style="{StaticResource H1}" Margin="0,0,0,14"/>
+
+            <!-- Клиент -->
+            <Border Grid.Row="1" Style="{StaticResource CardBorder}" Margin="0,0,0,18" VerticalAlignment="Top">
+                <StackPanel>
+                    <TextBlock Text="Клиент" Style="{StaticResource H2}"/>
+                    <TextBlock Text="Телефон" Style="{StaticResource Label}"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="PhoneBox" TextChanged="Phone_Changed" KeyDown="Phone_KeyDown" LostFocus="Phone_LostFocus"/>
+                        <Button Grid.Column="1" Content="Найти" Style="{StaticResource SecondaryButton}" Height="36" Margin="10,0,0,0" Click="FindClient_Click"/>
+                    </Grid>
+                    <Border x:Name="ClientFound" Background="#EEF7F1" CornerRadius="6" Padding="12,8" Margin="0,10,0,0" Visibility="Collapsed">
+                        <StackPanel>
+                            <TextBlock x:Name="ClientName" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="ClientInfo" Style="{StaticResource MutedText}"/>
+                        </StackPanel>
+                    </Border>
+                    <StackPanel x:Name="NewClientPanel" Visibility="Collapsed" Margin="0,10,0,0">
+                        <TextBlock Text="Клиент не найден — быстрая регистрация" Foreground="#D68910" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock Text="Фамилия *" Style="{StaticResource Label}"/>
+                                <TextBox x:Name="LastNameBox"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="Имя *" Style="{StaticResource Label}"/>
+                                <TextBox x:Name="FirstNameBox"/>
+                            </StackPanel>
+                        </Grid>
+                        <TextBlock Text="Отчество" Style="{StaticResource Label}" Margin="0,10,0,4"/>
+                        <TextBox x:Name="MiddleNameBox"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Назначение -->
+            <Border Grid.Row="1" Grid.Column="2" Style="{StaticResource CardBorder}" Margin="0,0,0,18" VerticalAlignment="Top">
+                <StackPanel>
+                    <TextBlock Text="Назначение" Style="{StaticResource H2}"/>
+                    <TextBlock Text="Мастер" Style="{StaticResource Label}"/>
+                    <ComboBox x:Name="MasterBox" DisplayMemberPath="Name"/>
+                    <TextBlock Text="Плановый срок готовности" Style="{StaticResource Label}" Margin="0,12,0,4"/>
+                    <DatePicker x:Name="DueDateBox"/>
+                    <CheckBox x:Name="WarrantyBox" Content="Гарантийный ремонт (для клиента бесплатно)" Margin="0,14,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Устройство -->
+            <Border Grid.Row="2" Style="{StaticResource CardBorder}" Margin="0,0,0,18" VerticalAlignment="Top">
+                <StackPanel>
+                    <TextBlock Text="Устройство" Style="{StaticResource H2}"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="Тип *" Style="{StaticResource Label}"/>
+                            <ComboBox x:Name="TypeBox" DisplayMemberPath="Name"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Производитель *" Style="{StaticResource Label}"/>
+                            <TextBox x:Name="BrandBox"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="Модель *" Style="{StaticResource Label}"/>
+                            <TextBox x:Name="ModelBox"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Серийный номер / IMEI" Style="{StaticResource Label}"/>
+                            <TextBox x:Name="SerialBox"/>
+                        </StackPanel>
+                    </Grid>
+                    <TextBlock Text="Заявленная неисправность *" Style="{StaticResource Label}" Margin="0,10,0,4"/>
+                    <TextBox x:Name="FaultBox" Style="{StaticResource MultiLine}"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Комплектность -->
+            <Border Grid.Row="2" Grid.Column="2" Style="{StaticResource CardBorder}" Margin="0,0,0,18" VerticalAlignment="Top">
+                <StackPanel>
+                    <TextBlock Text="Комплектность при приёме" Style="{StaticResource H2}"/>
+                    <UniformGrid x:Name="AccessoriesPanel" Columns="2"/>
+                    <TextBlock Text="Внешний вид" Style="{StaticResource H2}" Margin="0,12,0,8"/>
+                    <UniformGrid x:Name="AppearancePanel" Columns="2"/>
+                    <TextBlock Text="Примечание о внешнем виде" Style="{StaticResource Label}" Margin="0,10,0,4"/>
+                    <TextBox x:Name="AppearanceBox"/>
+                </StackPanel>
+            </Border>
+
+            <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal">
+                <Button x:Name="SaveButton" Content="Оформить и печатать квитанцию" Height="44" Padding="26,0" Click="Save_Click"/>
+                <Button Content="Очистить" Style="{StaticResource GhostButton}" Height="44" Margin="12,0,0,0" Click="Clear_Click"/>
+                <TextBlock x:Name="ErrorText" Foreground="{StaticResource Overdue}" VerticalAlignment="Center" Margin="16,0,0,0" TextWrapping="Wrap" MaxWidth="600"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Page>

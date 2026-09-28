@@ -1,0 +1,15 @@
+<Application x:Class="ServiceDesk.Desktop.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:ServiceDesk.Desktop.Controls"
+             ShutdownMode="OnExplicitShutdown">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <c:HexToBrushConverter x:Key="HexToBrush"/>
+            <c:BoolToVisibilityConverter x:Key="BoolToVis"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

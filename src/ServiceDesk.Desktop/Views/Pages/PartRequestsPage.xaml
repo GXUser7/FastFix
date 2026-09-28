@@ -1,0 +1,48 @@
+<Page x:Class="ServiceDesk.Desktop.Views.Pages.PartRequestsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Запросы мастеров">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Margin="0,0,0,14">
+            <TextBlock Text="Запросы мастеров и выдача деталей" Style="{StaticResource H1}" VerticalAlignment="Center"/>
+            <Button x:Name="IssueButton" Content="Выдать мастеру" HorizontalAlignment="Right" Click="Issue_Click"/>
+        </Grid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,14">
+            <ComboBox x:Name="FilterBox" Width="260" Height="38" DisplayMemberPath="Name" SelectionChanged="Filter_Changed"/>
+            <Button Content="Обновить" Style="{StaticResource SecondaryButton}" Margin="12,0,0,0" Click="Refresh_Click"/>
+        </StackPanel>
+        <Border Grid.Row="2" Style="{StaticResource CardBorder}" Padding="0">
+            <DataGrid x:Name="Grid" MouseDoubleClick="Issue_Click">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Дата запроса" Binding="{Binding CreatedAt, StringFormat=dd.MM.yyyy HH:mm}" Width="125"/>
+                    <DataGridTextColumn Header="Заявка" Binding="{Binding OrderId}" Width="70"/>
+                    <DataGridTextColumn Header="Устройство" Binding="{Binding OrderDevice}" Width="170"/>
+                    <DataGridTextColumn Header="Мастер" Binding="{Binding RequestedBy}" Width="110"/>
+                    <DataGridTextColumn Header="Артикул" Binding="{Binding Sku}" Width="110"/>
+                    <DataGridTextColumn Header="Запчасть" Binding="{Binding PartName}" Width="*" MinWidth="160"/>
+                    <DataGridTextColumn Header="Ячейка" Binding="{Binding Location}" Width="70"/>
+                    <DataGridTextColumn Header="Кол." Binding="{Binding Quantity}" Width="50"/>
+                    <DataGridTextColumn Header="Состояние" Binding="{Binding StatusName}" Width="150"/>
+                    <DataGridTextColumn Header="Выдал" Binding="{Binding IssuedBy}" Width="110"/>
+                </DataGrid.Columns>
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Status}" Value="requested">
+                                <Setter Property="Background" Value="#FFF8E1"/>
+                                <Setter Property="ToolTip" Value="Недостаточно на складе — оприходуйте поступление, резерв создастся автоматически"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+            </DataGrid>
+        </Border>
+        <TextBlock x:Name="Footer" Grid.Row="3" Style="{StaticResource MutedText}" Margin="2,10,0,0"/>
+    </Grid>
+</Page>

@@ -1,0 +1,209 @@
+<Page x:Class="ServiceDesk.Desktop.Views.Pages.OrderCardPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:c="clr-namespace:ServiceDesk.Desktop.Controls"
+      Title="Карточка заявки">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="340"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Button Content="← Назад к списку" Style="{StaticResource LinkButton}" Margin="0,0,0,12" HorizontalAlignment="Left" Click="Back_Click"/>
+
+            <!-- Левая колонка -->
+            <StackPanel Grid.Row="1">
+                <Border Style="{StaticResource CardBorder}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Margin="0,0,12,0">
+                                <TextBlock x:Name="TitleText" Style="{StaticResource H1}" TextWrapping="Wrap"/>
+                                <TextBlock x:Name="SubtitleText" Style="{StaticResource MutedText}" Margin="0,4,0,0"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top">
+                                <c:StatusBadge x:Name="OverdueBadge" Text="Просрочена" Color="#C0392B" Margin="0,0,6,0"/>
+                                <c:StatusBadge x:Name="StatusBadge"/>
+                            </StackPanel>
+                        </Grid>
+                        <c:StatusStepper x:Name="Stepper" Margin="0,18,0,4"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource CardBorder}" Margin="0,0,0,16">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="24"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="Клиент" Style="{StaticResource H2}"/>
+                            <TextBlock x:Name="ClientText" TextWrapping="Wrap"/>
+                            <TextBlock x:Name="ClientContacts" Style="{StaticResource MutedText}" Margin="0,2,0,12"/>
+                            <TextBlock Text="Заявленная неисправность" Style="{StaticResource H2}"/>
+                            <TextBlock x:Name="FaultText" TextWrapping="Wrap"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Устройство" Style="{StaticResource H2}"/>
+                            <TextBlock x:Name="DeviceText" TextWrapping="Wrap"/>
+                            <TextBlock x:Name="SerialText" Style="{StaticResource MutedText}" Margin="0,2,0,12"/>
+                            <TextBlock Text="Комплектность и внешний вид" Style="{StaticResource H2}"/>
+                            <TextBlock x:Name="CompletenessText" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Диагностика -->
+                <Border Style="{StaticResource CardBorder}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="Заключение мастера" Style="{StaticResource H2}"/>
+                        <TextBox x:Name="DiagnosisBox" Style="{StaticResource MultiLine}" MinHeight="80"/>
+                        <StackPanel x:Name="DiagnosisEdit" Orientation="Horizontal" Margin="0,10,0,0">
+                            <TextBlock Text="Гарантия на работы, мес. (0–36):" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBox x:Name="WarrantyBox" Width="70"/>
+                            <Button Content="Сохранить заключение" Margin="12,0,0,0" Click="SaveDiagnosis_Click"/>
+                        </StackPanel>
+                        <TextBlock x:Name="WarrantyText" Style="{StaticResource MutedText}" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Журнал работ -->
+                <Border Style="{StaticResource CardBorder}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <Grid Margin="0,0,0,8">
+                            <TextBlock Text="Журнал работ" Style="{StaticResource H2}" Margin="0"/>
+                            <StackPanel x:Name="WorkButtons" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button Content="Удалить" Style="{StaticResource GhostButton}" Height="32" Click="DeleteWork_Click"/>
+                                <Button Content="+ Работа" Style="{StaticResource SecondaryButton}" Height="32" Margin="8,0,0,0" Click="AddWork_Click"/>
+                            </StackPanel>
+                        </Grid>
+                        <DataGrid x:Name="WorksGrid" MaxHeight="260" RowHeight="34">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Работа" Binding="{Binding Description}" Width="*" MinWidth="160"/>
+                                <DataGridTextColumn Header="Мастер" Binding="{Binding MasterName}" Width="120"/>
+                                <DataGridTextColumn Header="Дата" Binding="{Binding CreatedAt, StringFormat=dd.MM.yyyy}" Width="90"/>
+                                <DataGridTextColumn Header="Стоимость, ₽" Binding="{Binding Price, StringFormat=N2}" Width="110"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Запчасти -->
+                <Border Style="{StaticResource CardBorder}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <Grid Margin="0,0,0,8">
+                            <TextBlock Text="Запчасти" Style="{StaticResource H2}" Margin="0"/>
+                            <StackPanel x:Name="PartButtons" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button Content="Отменить резерв" Style="{StaticResource GhostButton}" Height="32" Click="DeletePart_Click"/>
+                                <Button Content="+ Запросить запчасть" Style="{StaticResource SecondaryButton}" Height="32" Margin="8,0,0,0" Click="AddPart_Click"/>
+                            </StackPanel>
+                        </Grid>
+                        <DataGrid x:Name="PartsGrid" MaxHeight="260" RowHeight="34">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Артикул" Binding="{Binding Sku}" Width="110"/>
+                                <DataGridTextColumn Header="Наименование" Binding="{Binding PartName}" Width="*" MinWidth="160"/>
+                                <DataGridTextColumn Header="Кол." Binding="{Binding Quantity}" Width="50"/>
+                                <DataGridTextColumn Header="Сумма, ₽" Binding="{Binding Sum, StringFormat=N2}" Width="95"/>
+                                <DataGridTextColumn Header="Состояние" Binding="{Binding StatusName}" Width="150"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+
+                <!-- История -->
+                <Border Style="{StaticResource CardBorder}">
+                    <StackPanel>
+                        <TextBlock Text="История статусов" Style="{StaticResource H2}"/>
+                        <ItemsControl x:Name="HistoryList">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="130"/>
+                                            <ColumnDefinition Width="220"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding ChangedAt, StringFormat=dd.MM.yyyy HH:mm}" Style="{StaticResource MutedText}" VerticalAlignment="Center"/>
+                                        <c:StatusBadge Grid.Column="1" Text="{Binding StatusName}" Color="{Binding StatusColor}"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding ChangedBy}" FontSize="13" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="3" Text="{Binding Comment}" FontSize="13" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- Правая колонка -->
+            <StackPanel Grid.Row="1" Grid.Column="2">
+                <Border Style="{StaticResource CardBorder}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="Действия" Style="{StaticResource H2}"/>
+                        <StackPanel x:Name="ActionsPanel"/>
+                        <TextBlock x:Name="NoActionsText" Text="Для этой заявки нет доступных действий" Style="{StaticResource MutedText}"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource CardBorder}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="Стоимость" Style="{StaticResource H2}"/>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/><RowDefinition/><RowDefinition/><RowDefinition/><RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/><ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Работы" Style="{StaticResource MutedText}"/>
+                            <TextBlock x:Name="WorksTotal" Grid.Column="1"/>
+                            <TextBlock Grid.Row="1" Text="Запчасти" Style="{StaticResource MutedText}" Margin="0,4,0,0"/>
+                            <TextBlock x:Name="PartsTotal" Grid.Row="1" Grid.Column="1" Margin="0,4,0,0"/>
+                            <TextBlock Grid.Row="2" Text="Итого" FontWeight="SemiBold" Margin="0,8,0,0"/>
+                            <TextBlock x:Name="Total" Grid.Row="2" Grid.Column="1" FontSize="18" FontWeight="Bold" Margin="0,4,0,0"/>
+                            <TextBlock Grid.Row="3" Text="Оплачено" Style="{StaticResource MutedText}" Margin="0,4,0,0"/>
+                            <TextBlock x:Name="Paid" Grid.Row="3" Grid.Column="1" Margin="0,4,0,0"/>
+                            <TextBlock Grid.Row="4" Text="К оплате" FontWeight="SemiBold" Margin="0,4,0,0"/>
+                            <TextBlock x:Name="Due" Grid.Row="4" Grid.Column="1" FontWeight="SemiBold" Margin="0,4,0,0"/>
+                        </Grid>
+                        <TextBlock x:Name="DecisionText" Style="{StaticResource MutedText}" Margin="0,10,0,0"/>
+                        <ItemsControl x:Name="PaymentsList" Margin="0,8,0,0">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontSize="12.5" Foreground="{StaticResource Muted}">
+                                        <Run Text="{Binding PaidAt, StringFormat=dd.MM.yyyy HH:mm, Mode=OneWay}"/> · <Run Text="{Binding MethodName, Mode=OneWay}"/> · <Run Text="{Binding Amount, StringFormat=N2, Mode=OneWay}"/> ₽
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource CardBorder}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="Документы (PDF)" Style="{StaticResource H2}"/>
+                        <StackPanel x:Name="DocumentsPanel"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource CardBorder}">
+                    <StackPanel>
+                        <TextBlock Text="Сведения" Style="{StaticResource H2}"/>
+                        <TextBlock x:Name="InfoText" FontSize="13" TextWrapping="Wrap" LineHeight="21"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Page>

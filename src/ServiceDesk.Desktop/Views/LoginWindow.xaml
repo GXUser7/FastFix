@@ -1,0 +1,28 @@
+<Window x:Class="ServiceDesk.Desktop.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="СервисДеск — вход" Width="460" Height="560" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen" Style="{StaticResource AppWindow}" Icon="/Assets/logo.png"
+        Background="{StaticResource Navy}">
+    <Grid Margin="44,40">
+        <StackPanel>
+            <TextBlock FontSize="26" FontWeight="Bold" Margin="0,0,0,40">
+                <Run Text="Сервис" Foreground="White"/><Run Text="Деск" Foreground="{StaticResource Accent}"/>
+            </TextBlock>
+            <TextBlock Text="Рабочее место сотрудника" FontSize="22" FontWeight="SemiBold" Foreground="White"/>
+            <TextBlock Text="Приёмщик · Мастер · Кладовщик" Foreground="{StaticResource NavMuted}" Margin="0,6,0,26"/>
+
+            <Border x:Name="ErrorBox" Background="#3A2530" CornerRadius="6" Padding="12,8" Margin="0,0,0,14" Visibility="Collapsed">
+                <TextBlock x:Name="ErrorText" Foreground="#FFB4AA" TextWrapping="Wrap" FontSize="13"/>
+            </Border>
+
+            <TextBlock Text="Телефон или email" Foreground="{StaticResource NavMuted}" FontSize="12.5" Margin="0,0,0,4"/>
+            <TextBox x:Name="LoginBox" Height="44" Background="{StaticResource Navy2}" Foreground="White" BorderBrush="{StaticResource Navy2}" CaretBrush="White" FontSize="15"/>
+            <TextBlock Text="Пароль" Foreground="{StaticResource NavMuted}" FontSize="12.5" Margin="0,14,0,4"/>
+            <PasswordBox x:Name="PasswordBox" Height="44" Background="{StaticResource Navy2}" Foreground="White" BorderBrush="{StaticResource Navy2}" CaretBrush="White" FontSize="15"/>
+
+            <Button x:Name="LoginButton" Content="Войти" Height="46" FontSize="15" Margin="0,26,0,0" IsDefault="True" Click="Login_Click"/>
+            <TextBlock x:Name="ServerText" Foreground="#6F819B" FontSize="12" Margin="0,18,0,0" HorizontalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</Window>
