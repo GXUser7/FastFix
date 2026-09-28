@@ -7,7 +7,7 @@
 
 | Компонент | Технологии | Каталог |
 |---|---|---|
-| Сервер приложений (REST API, SignalR, PDF) | ASP.NET Core 8, EF Core 8 + Pomelo MySQL, JWT, BCrypt, QuestPDF, Swagger | `src/ServiceDesk.Api` |
+| Сервер приложений (REST API, SignalR, PDF) | ASP.NET Core 8, EF Core 8 + Pomelo MySQL, JWT, QuestPDF, Swagger | `src/ServiceDesk.Api` |
 | Общие DTO и константы | .NET 8 | `src/ServiceDesk.Contracts` |
 | Рабочее место сотрудника (приёмщик, мастер, кладовщик) | WPF, .NET 8 | `src/ServiceDesk.Desktop` |
 | Веб-кабинет клиента | Vue 3, Vite, Vue Router, @microsoft/signalr | `web` |
