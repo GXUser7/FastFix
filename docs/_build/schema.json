@@ -1,0 +1,1883 @@
+{
+ "tables": [
+  {
+   "name": "completeness_items",
+   "comment": "Справочник пунктов комплектности",
+   "columns": [
+    {
+     "name": "id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "PRI",
+     "default": "NONE",
+     "extra": "auto_increment",
+     "comment": "Идентификатор пункта"
+    },
+    {
+     "name": "name",
+     "type": "varchar(80)",
+     "nullable": "NO",
+     "key": "UNI",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Наименование (например, «Зарядное устройство»)"
+    },
+    {
+     "name": "kind",
+     "type": "enum('accessory','appearance')",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "accessory — комплектующее, appearance — дефект внешнего вида"
+    }
+   ]
+  },
+  {
+   "name": "device_types",
+   "comment": "Типы устройств",
+   "columns": [
+    {
+     "name": "id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "PRI",
+     "default": "NONE",
+     "extra": "auto_increment",
+     "comment": "Идентификатор типа"
+    },
+    {
+     "name": "name",
+     "type": "varchar(60)",
+     "nullable": "NO",
+     "key": "UNI",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Наименование типа устройства"
+    }
+   ]
+  },
+  {
+   "name": "devices",
+   "comment": "Устройства клиентов",
+   "columns": [
+    {
+     "name": "id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "PRI",
+     "default": "NONE",
+     "extra": "auto_increment",
+     "comment": "Идентификатор устройства"
+    },
+    {
+     "name": "client_id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Владелец устройства (клиент)"
+    },
+    {
+     "name": "device_type_id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Тип устройства"
+    },
+    {
+     "name": "brand",
+     "type": "varchar(60)",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Производитель"
+    },
+    {
+     "name": "model",
+     "type": "varchar(100)",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Модель"
+    },
+    {
+     "name": "serial_number",
+     "type": "varchar(60)",
+     "nullable": "YES",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Серийный номер / IMEI"
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "nullable": "NO",
+     "key": "",
+     "default": "CURRENT_TIMESTAMP",
+     "extra": "DEFAULT_GENERATED",
+     "comment": "Дата регистрации устройства"
+    }
+   ]
+  },
+  {
+   "name": "order_statuses",
+   "comment": "Статусы заявок",
+   "columns": [
+    {
+     "name": "id",
+     "type": "tinyint",
+     "nullable": "NO",
+     "key": "PRI",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Идентификатор статуса"
+    },
+    {
+     "name": "code",
+     "type": "varchar(20)",
+     "nullable": "NO",
+     "key": "UNI",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Системный код статуса"
+    },
+    {
+     "name": "name",
+     "type": "varchar(50)",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Наименование статуса"
+    },
+    {
+     "name": "color",
+     "type": "char(7)",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Цвет отображения (HEX) по руководству по стилю"
+    },
+    {
+     "name": "sort_order",
+     "type": "tinyint",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Порядок этапа в жизненном цикле"
+    },
+    {
+     "name": "is_final",
+     "type": "tinyint(1)",
+     "nullable": "NO",
+     "key": "",
+     "default": "0",
+     "extra": "",
+     "comment": "Конечный статус (заявка закрыта)"
+    }
+   ]
+  },
+  {
+   "name": "orders",
+   "comment": "Заявки на ремонт",
+   "columns": [
+    {
+     "name": "id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "PRI",
+     "default": "NONE",
+     "extra": "auto_increment",
+     "comment": "Номер заявки"
+    },
+    {
+     "name": "client_id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Клиент"
+    },
+    {
+     "name": "device_id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Принятое устройство"
+    },
+    {
+     "name": "receptionist_id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Приёмщик, оформивший заявку"
+    },
+    {
+     "name": "master_id",
+     "type": "int",
+     "nullable": "YES",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Назначенный мастер"
+    },
+    {
+     "name": "status_id",
+     "type": "tinyint",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "1",
+     "extra": "",
+     "comment": "Текущий статус"
+    },
+    {
+     "name": "declared_fault",
+     "type": "varchar(500)",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Заявленная клиентом неисправность"
+    },
+    {
+     "name": "appearance_note",
+     "type": "varchar(300)",
+     "nullable": "YES",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Примечание о внешнем виде при приёме"
+    },
+    {
+     "name": "diagnosis",
+     "type": "text",
+     "nullable": "YES",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Заключение мастера по итогам диагностики"
+    },
+    {
+     "name": "is_warranty",
+     "type": "tinyint(1)",
+     "nullable": "NO",
+     "key": "",
+     "default": "0",
+     "extra": "",
+     "comment": "Гарантийный ремонт (для клиента бесплатно)"
+    },
+    {
+     "name": "warranty_months",
+     "type": "tinyint",
+     "nullable": "YES",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Гарантийный срок на выполненные работы, мес."
+    },
+    {
+     "name": "client_decision",
+     "type": "enum('approved','rejected')",
+     "nullable": "YES",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Решение клиента по стоимости"
+    },
+    {
+     "name": "decision_at",
+     "type": "datetime",
+     "nullable": "YES",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Дата решения клиента"
+    },
+    {
+     "name": "total_cost",
+     "type": "decimal(10,2)",
+     "nullable": "NO",
+     "key": "",
+     "default": "0.00",
+     "extra": "",
+     "comment": "Итоговая стоимость: работы + запчасти"
+    },
+    {
+     "name": "due_date",
+     "type": "date",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Плановый срок готовности"
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "CURRENT_TIMESTAMP",
+     "extra": "DEFAULT_GENERATED",
+     "comment": "Дата приёма"
+    },
+    {
+     "name": "ready_at",
+     "type": "datetime",
+     "nullable": "YES",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Дата готовности к выдаче"
+    },
+    {
+     "name": "issued_at",
+     "type": "datetime",
+     "nullable": "YES",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Дата выдачи клиенту"
+    },
+    {
+     "name": "updated_at",
+     "type": "datetime",
+     "nullable": "NO",
+     "key": "",
+     "default": "CURRENT_TIMESTAMP",
+     "extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
+     "comment": "Дата последнего изменения"
+    }
+   ]
+  },
+  {
+   "name": "roles",
+   "comment": "Роли пользователей",
+   "columns": [
+    {
+     "name": "id",
+     "type": "tinyint",
+     "nullable": "NO",
+     "key": "PRI",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Идентификатор роли"
+    },
+    {
+     "name": "code",
+     "type": "varchar(20)",
+     "nullable": "NO",
+     "key": "UNI",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Системный код роли (client, receptionist, master, storekeeper)"
+    },
+    {
+     "name": "name",
+     "type": "varchar(50)",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Наименование роли"
+    }
+   ]
+  },
+  {
+   "name": "users",
+   "comment": "Пользователи системы (клиенты и сотрудники)",
+   "columns": [
+    {
+     "name": "id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "PRI",
+     "default": "NONE",
+     "extra": "auto_increment",
+     "comment": "Идентификатор пользователя"
+    },
+    {
+     "name": "role_id",
+     "type": "tinyint",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Роль пользователя"
+    },
+    {
+     "name": "last_name",
+     "type": "varchar(60)",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Фамилия"
+    },
+    {
+     "name": "first_name",
+     "type": "varchar(60)",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Имя"
+    },
+    {
+     "name": "middle_name",
+     "type": "varchar(60)",
+     "nullable": "YES",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Отчество"
+    },
+    {
+     "name": "phone",
+     "type": "varchar(16)",
+     "nullable": "NO",
+     "key": "UNI",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Телефон в формате +7XXXXXXXXXX, используется как логин"
+    },
+    {
+     "name": "email",
+     "type": "varchar(120)",
+     "nullable": "YES",
+     "key": "UNI",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Электронная почта, альтернативный логин"
+    },
+    {
+     "name": "password_hash",
+     "type": "varchar(100)",
+     "nullable": "YES",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Хеш пароля BCrypt; NULL — клиент заведён приёмщиком и ещё не зарегистрировался"
+    },
+    {
+     "name": "is_active",
+     "type": "tinyint(1)",
+     "nullable": "NO",
+     "key": "",
+     "default": "1",
+     "extra": "",
+     "comment": "Учётная запись активна"
+    },
+    {
+     "name": "failed_login_count",
+     "type": "tinyint",
+     "nullable": "NO",
+     "key": "",
+     "default": "0",
+     "extra": "",
+     "comment": "Число неудачных попыток входа подряд"
+    },
+    {
+     "name": "locked_until",
+     "type": "datetime",
+     "nullable": "YES",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Блокировка входа до указанного времени (после 5 неудачных попыток)"
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "nullable": "NO",
+     "key": "",
+     "default": "CURRENT_TIMESTAMP",
+     "extra": "DEFAULT_GENERATED",
+     "comment": "Дата регистрации"
+    }
+   ]
+  },
+  {
+   "name": "documents",
+   "comment": "Реестр сформированных документов",
+   "columns": [
+    {
+     "name": "id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "PRI",
+     "default": "NONE",
+     "extra": "auto_increment",
+     "comment": "Идентификатор документа"
+    },
+    {
+     "name": "order_id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Заявка"
+    },
+    {
+     "name": "doc_type",
+     "type": "enum('receipt','estimate','act','issue')",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "receipt — квитанция о приёме, estimate — смета, act — акт выполненных работ, issue — акт выдачи"
+    },
+    {
+     "name": "number",
+     "type": "varchar(30)",
+     "nullable": "NO",
+     "key": "UNI",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Номер документа (например, КВ-10231)"
+    },
+    {
+     "name": "created_by",
+     "type": "int",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Сотрудник, сформировавший документ"
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "nullable": "NO",
+     "key": "",
+     "default": "CURRENT_TIMESTAMP",
+     "extra": "DEFAULT_GENERATED",
+     "comment": "Дата формирования"
+    }
+   ]
+  },
+  {
+   "name": "inventories",
+   "comment": "Инвентаризации склада",
+   "columns": [
+    {
+     "name": "id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "PRI",
+     "default": "NONE",
+     "extra": "auto_increment",
+     "comment": "Номер инвентаризации"
+    },
+    {
+     "name": "created_by",
+     "type": "int",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Кладовщик, проводивший инвентаризацию"
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "nullable": "NO",
+     "key": "",
+     "default": "CURRENT_TIMESTAMP",
+     "extra": "DEFAULT_GENERATED",
+     "comment": "Дата проведения"
+    },
+    {
+     "name": "comment",
+     "type": "varchar(300)",
+     "nullable": "YES",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Комментарий"
+    },
+    {
+     "name": "discrepancies",
+     "type": "int",
+     "nullable": "NO",
+     "key": "",
+     "default": "0",
+     "extra": "",
+     "comment": "Количество позиций с расхождением"
+    }
+   ]
+  },
+  {
+   "name": "inventory_items",
+   "comment": "Строки инвентаризационной ведомости",
+   "columns": [
+    {
+     "name": "id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "PRI",
+     "default": "NONE",
+     "extra": "auto_increment",
+     "comment": "Идентификатор строки"
+    },
+    {
+     "name": "inventory_id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Инвентаризация"
+    },
+    {
+     "name": "part_id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Запчасть"
+    },
+    {
+     "name": "expected_qty",
+     "type": "int",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Учётный остаток"
+    },
+    {
+     "name": "actual_qty",
+     "type": "int",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Фактический остаток"
+    },
+    {
+     "name": "difference",
+     "type": "int",
+     "nullable": "YES",
+     "key": "",
+     "default": "NONE",
+     "extra": "STORED GENERATED",
+     "comment": "Расхождение (вычисляемое поле)"
+    }
+   ]
+  },
+  {
+   "name": "order_completeness",
+   "comment": "Комплектность устройства при приёме",
+   "columns": [
+    {
+     "name": "order_id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "PRI",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Заявка"
+    },
+    {
+     "name": "item_id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "PRI",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Отмеченный пункт комплектности"
+    }
+   ]
+  },
+  {
+   "name": "order_status_history",
+   "comment": "История статусов заявки",
+   "columns": [
+    {
+     "name": "id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "PRI",
+     "default": "NONE",
+     "extra": "auto_increment",
+     "comment": "Идентификатор записи"
+    },
+    {
+     "name": "order_id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Заявка"
+    },
+    {
+     "name": "status_id",
+     "type": "tinyint",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Установленный статус"
+    },
+    {
+     "name": "changed_by",
+     "type": "int",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Пользователь, сменивший статус"
+    },
+    {
+     "name": "changed_at",
+     "type": "datetime",
+     "nullable": "NO",
+     "key": "",
+     "default": "CURRENT_TIMESTAMP",
+     "extra": "DEFAULT_GENERATED",
+     "comment": "Дата и время смены"
+    },
+    {
+     "name": "comment",
+     "type": "varchar(300)",
+     "nullable": "YES",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Комментарий к смене статуса"
+    }
+   ]
+  },
+  {
+   "name": "order_works",
+   "comment": "Журнал работ по заявке",
+   "columns": [
+    {
+     "name": "id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "PRI",
+     "default": "NONE",
+     "extra": "auto_increment",
+     "comment": "Идентификатор записи"
+    },
+    {
+     "name": "order_id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Заявка"
+    },
+    {
+     "name": "service_id",
+     "type": "int",
+     "nullable": "YES",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Услуга из прайс-листа (NULL — произвольная работа)"
+    },
+    {
+     "name": "master_id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Мастер, выполнивший работу"
+    },
+    {
+     "name": "description",
+     "type": "varchar(300)",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Описание выполненной работы"
+    },
+    {
+     "name": "price",
+     "type": "decimal(10,2)",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Стоимость работы, руб."
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "nullable": "NO",
+     "key": "",
+     "default": "CURRENT_TIMESTAMP",
+     "extra": "DEFAULT_GENERATED",
+     "comment": "Дата записи"
+    }
+   ]
+  },
+  {
+   "name": "part_movements",
+   "comment": "Журнал движения запчастей",
+   "columns": [
+    {
+     "name": "id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "PRI",
+     "default": "NONE",
+     "extra": "auto_increment",
+     "comment": "Идентификатор операции"
+    },
+    {
+     "name": "part_id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Запчасть"
+    },
+    {
+     "name": "order_id",
+     "type": "int",
+     "nullable": "YES",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Заявка, к которой относится операция"
+    },
+    {
+     "name": "movement_type",
+     "type": "enum('receipt','reserve','unreserve','issue','inventory')",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "receipt — оприходование, reserve/unreserve — резерв и его снятие, issue — выдача (списание), inventory — корректировка"
+    },
+    {
+     "name": "quantity",
+     "type": "int",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Количество со знаком: + приход, − расход"
+    },
+    {
+     "name": "balance_after",
+     "type": "int",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Физический остаток после операции"
+    },
+    {
+     "name": "user_id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Сотрудник, выполнивший операцию"
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "nullable": "NO",
+     "key": "",
+     "default": "CURRENT_TIMESTAMP",
+     "extra": "DEFAULT_GENERATED",
+     "comment": "Дата и время операции"
+    },
+    {
+     "name": "comment",
+     "type": "varchar(300)",
+     "nullable": "YES",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Комментарий (номер накладной и т. п.)"
+    }
+   ]
+  },
+  {
+   "name": "part_reservations",
+   "comment": "Резервирование запчастей под заявки",
+   "columns": [
+    {
+     "name": "id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "PRI",
+     "default": "NONE",
+     "extra": "auto_increment",
+     "comment": "Идентификатор резерва"
+    },
+    {
+     "name": "order_id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Заявка"
+    },
+    {
+     "name": "part_id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Запчасть"
+    },
+    {
+     "name": "quantity",
+     "type": "int",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Количество"
+    },
+    {
+     "name": "price",
+     "type": "decimal(10,2)",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Цена на момент резервирования, руб."
+    },
+    {
+     "name": "status",
+     "type": "enum('requested','reserved','issued','cancelled')",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "requested",
+     "extra": "",
+     "comment": "requested — ожидает поступления, reserved — зарезервирована, issued — выдана мастеру, cancelled — отменена"
+    },
+    {
+     "name": "requested_by",
+     "type": "int",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Мастер, запросивший запчасть"
+    },
+    {
+     "name": "issued_by",
+     "type": "int",
+     "nullable": "YES",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Кладовщик, выдавший запчасть"
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "nullable": "NO",
+     "key": "",
+     "default": "CURRENT_TIMESTAMP",
+     "extra": "DEFAULT_GENERATED",
+     "comment": "Дата запроса"
+    },
+    {
+     "name": "issued_at",
+     "type": "datetime",
+     "nullable": "YES",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Дата выдачи"
+    }
+   ]
+  },
+  {
+   "name": "parts",
+   "comment": "Номенклатура и остатки запчастей",
+   "columns": [
+    {
+     "name": "id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "PRI",
+     "default": "NONE",
+     "extra": "auto_increment",
+     "comment": "Идентификатор запчасти"
+    },
+    {
+     "name": "sku",
+     "type": "varchar(30)",
+     "nullable": "NO",
+     "key": "UNI",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Артикул"
+    },
+    {
+     "name": "name",
+     "type": "varchar(150)",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Наименование"
+    },
+    {
+     "name": "unit",
+     "type": "varchar(10)",
+     "nullable": "NO",
+     "key": "",
+     "default": "шт",
+     "extra": "",
+     "comment": "Единица измерения"
+    },
+    {
+     "name": "price",
+     "type": "decimal(10,2)",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Цена для клиента, руб."
+    },
+    {
+     "name": "quantity_on_hand",
+     "type": "int",
+     "nullable": "NO",
+     "key": "",
+     "default": "0",
+     "extra": "",
+     "comment": "Физический остаток на складе"
+    },
+    {
+     "name": "quantity_reserved",
+     "type": "int",
+     "nullable": "NO",
+     "key": "",
+     "default": "0",
+     "extra": "",
+     "comment": "Зарезервировано под заявки"
+    },
+    {
+     "name": "min_quantity",
+     "type": "int",
+     "nullable": "NO",
+     "key": "",
+     "default": "0",
+     "extra": "",
+     "comment": "Неснижаемый остаток"
+    },
+    {
+     "name": "location",
+     "type": "varchar(30)",
+     "nullable": "YES",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Ячейка хранения"
+    },
+    {
+     "name": "is_active",
+     "type": "tinyint(1)",
+     "nullable": "NO",
+     "key": "",
+     "default": "1",
+     "extra": "",
+     "comment": "Позиция используется"
+    },
+    {
+     "name": "created_at",
+     "type": "datetime",
+     "nullable": "NO",
+     "key": "",
+     "default": "CURRENT_TIMESTAMP",
+     "extra": "DEFAULT_GENERATED",
+     "comment": "Дата создания карточки"
+    }
+   ]
+  },
+  {
+   "name": "payments",
+   "comment": "Оплаты по заявкам",
+   "columns": [
+    {
+     "name": "id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "PRI",
+     "default": "NONE",
+     "extra": "auto_increment",
+     "comment": "Идентификатор платежа"
+    },
+    {
+     "name": "order_id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Заявка"
+    },
+    {
+     "name": "amount",
+     "type": "decimal(10,2)",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Сумма, руб."
+    },
+    {
+     "name": "method",
+     "type": "enum('cash','card','sbp')",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Способ оплаты: наличные, карта, СБП"
+    },
+    {
+     "name": "received_by",
+     "type": "int",
+     "nullable": "NO",
+     "key": "MUL",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Приёмщик, принявший оплату"
+    },
+    {
+     "name": "paid_at",
+     "type": "datetime",
+     "nullable": "NO",
+     "key": "",
+     "default": "CURRENT_TIMESTAMP",
+     "extra": "DEFAULT_GENERATED",
+     "comment": "Дата и время оплаты"
+    }
+   ]
+  },
+  {
+   "name": "services",
+   "comment": "Прайс-лист работ",
+   "columns": [
+    {
+     "name": "id",
+     "type": "int",
+     "nullable": "NO",
+     "key": "PRI",
+     "default": "NONE",
+     "extra": "auto_increment",
+     "comment": "Идентификатор услуги"
+    },
+    {
+     "name": "name",
+     "type": "varchar(120)",
+     "nullable": "NO",
+     "key": "UNI",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Наименование работы"
+    },
+    {
+     "name": "price",
+     "type": "decimal(10,2)",
+     "nullable": "NO",
+     "key": "",
+     "default": "NONE",
+     "extra": "",
+     "comment": "Базовая стоимость, руб."
+    },
+    {
+     "name": "is_active",
+     "type": "tinyint(1)",
+     "nullable": "NO",
+     "key": "",
+     "default": "1",
+     "extra": "",
+     "comment": "Услуга доступна для выбора"
+    }
+   ]
+  }
+ ],
+ "fks": [
+  {
+   "name": "fk_devices_client",
+   "table": "devices",
+   "column": "client_id",
+   "ref_table": "users",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_devices_type",
+   "table": "devices",
+   "column": "device_type_id",
+   "ref_table": "device_types",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_doc_order",
+   "table": "documents",
+   "column": "order_id",
+   "ref_table": "orders",
+   "ref_column": "id",
+   "on_delete": "CASCADE"
+  },
+  {
+   "name": "fk_doc_user",
+   "table": "documents",
+   "column": "created_by",
+   "ref_table": "users",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_inv_user",
+   "table": "inventories",
+   "column": "created_by",
+   "ref_table": "users",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_ii_inventory",
+   "table": "inventory_items",
+   "column": "inventory_id",
+   "ref_table": "inventories",
+   "ref_column": "id",
+   "on_delete": "CASCADE"
+  },
+  {
+   "name": "fk_ii_part",
+   "table": "inventory_items",
+   "column": "part_id",
+   "ref_table": "parts",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_oc_item",
+   "table": "order_completeness",
+   "column": "item_id",
+   "ref_table": "completeness_items",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_oc_order",
+   "table": "order_completeness",
+   "column": "order_id",
+   "ref_table": "orders",
+   "ref_column": "id",
+   "on_delete": "CASCADE"
+  },
+  {
+   "name": "fk_osh_order",
+   "table": "order_status_history",
+   "column": "order_id",
+   "ref_table": "orders",
+   "ref_column": "id",
+   "on_delete": "CASCADE"
+  },
+  {
+   "name": "fk_osh_status",
+   "table": "order_status_history",
+   "column": "status_id",
+   "ref_table": "order_statuses",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_osh_user",
+   "table": "order_status_history",
+   "column": "changed_by",
+   "ref_table": "users",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_ow_master",
+   "table": "order_works",
+   "column": "master_id",
+   "ref_table": "users",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_ow_order",
+   "table": "order_works",
+   "column": "order_id",
+   "ref_table": "orders",
+   "ref_column": "id",
+   "on_delete": "CASCADE"
+  },
+  {
+   "name": "fk_ow_service",
+   "table": "order_works",
+   "column": "service_id",
+   "ref_table": "services",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_orders_client",
+   "table": "orders",
+   "column": "client_id",
+   "ref_table": "users",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_orders_device",
+   "table": "orders",
+   "column": "device_id",
+   "ref_table": "devices",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_orders_master",
+   "table": "orders",
+   "column": "master_id",
+   "ref_table": "users",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_orders_receptionist",
+   "table": "orders",
+   "column": "receptionist_id",
+   "ref_table": "users",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_orders_status",
+   "table": "orders",
+   "column": "status_id",
+   "ref_table": "order_statuses",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_pm_order",
+   "table": "part_movements",
+   "column": "order_id",
+   "ref_table": "orders",
+   "ref_column": "id",
+   "on_delete": "SET NULL"
+  },
+  {
+   "name": "fk_pm_part",
+   "table": "part_movements",
+   "column": "part_id",
+   "ref_table": "parts",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_pm_user",
+   "table": "part_movements",
+   "column": "user_id",
+   "ref_table": "users",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_pr_issued",
+   "table": "part_reservations",
+   "column": "issued_by",
+   "ref_table": "users",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_pr_order",
+   "table": "part_reservations",
+   "column": "order_id",
+   "ref_table": "orders",
+   "ref_column": "id",
+   "on_delete": "CASCADE"
+  },
+  {
+   "name": "fk_pr_part",
+   "table": "part_reservations",
+   "column": "part_id",
+   "ref_table": "parts",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_pr_requested",
+   "table": "part_reservations",
+   "column": "requested_by",
+   "ref_table": "users",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_pay_order",
+   "table": "payments",
+   "column": "order_id",
+   "ref_table": "orders",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_pay_user",
+   "table": "payments",
+   "column": "received_by",
+   "ref_table": "users",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  },
+  {
+   "name": "fk_users_role",
+   "table": "users",
+   "column": "role_id",
+   "ref_table": "roles",
+   "ref_column": "id",
+   "on_delete": "NO ACTION"
+  }
+ ],
+ "checks": [
+  {
+   "name": "ck_ii_actual",
+   "table": "inventory_items",
+   "clause": "(`actual_qty` >= 0)"
+  },
+  {
+   "name": "ck_ow_price",
+   "table": "order_works",
+   "clause": "(`price` >= 0)"
+  },
+  {
+   "name": "ck_orders_total",
+   "table": "orders",
+   "clause": "(`total_cost` >= 0)"
+  },
+  {
+   "name": "ck_orders_warranty",
+   "table": "orders",
+   "clause": "((`warranty_months` is null) or (`warranty_months` between 0 and 36))"
+  },
+  {
+   "name": "ck_pr_qty",
+   "table": "part_reservations",
+   "clause": "(`quantity` > 0)"
+  },
+  {
+   "name": "ck_parts_qty",
+   "table": "parts",
+   "clause": "(`quantity_on_hand` >= 0)"
+  },
+  {
+   "name": "ck_parts_reserved",
+   "table": "parts",
+   "clause": "((`quantity_reserved` >= 0) and (`quantity_reserved` <= `quantity_on_hand`))"
+  },
+  {
+   "name": "ck_parts_price",
+   "table": "parts",
+   "clause": "(`price` >= 0)"
+  },
+  {
+   "name": "ck_pay_amount",
+   "table": "payments",
+   "clause": "(`amount` > 0)"
+  },
+  {
+   "name": "ck_services_price",
+   "table": "services",
+   "clause": "(`price` >= 0)"
+  },
+  {
+   "name": "ck_users_failed",
+   "table": "users",
+   "clause": "(`failed_login_count` >= 0)"
+  }
+ ],
+ "indexes": [
+  {
+   "table": "completeness_items",
+   "name": "PRIMARY",
+   "unique": "да",
+   "columns": "id"
+  },
+  {
+   "table": "completeness_items",
+   "name": "uq_completeness_items_name",
+   "unique": "да",
+   "columns": "name"
+  },
+  {
+   "table": "device_types",
+   "name": "PRIMARY",
+   "unique": "да",
+   "columns": "id"
+  },
+  {
+   "table": "device_types",
+   "name": "uq_device_types_name",
+   "unique": "да",
+   "columns": "name"
+  },
+  {
+   "table": "devices",
+   "name": "fk_devices_client",
+   "unique": "нет",
+   "columns": "client_id"
+  },
+  {
+   "table": "devices",
+   "name": "fk_devices_type",
+   "unique": "нет",
+   "columns": "device_type_id"
+  },
+  {
+   "table": "devices",
+   "name": "ix_devices_serial",
+   "unique": "нет",
+   "columns": "serial_number"
+  },
+  {
+   "table": "devices",
+   "name": "PRIMARY",
+   "unique": "да",
+   "columns": "id"
+  },
+  {
+   "table": "documents",
+   "name": "fk_doc_user",
+   "unique": "нет",
+   "columns": "created_by"
+  },
+  {
+   "table": "documents",
+   "name": "PRIMARY",
+   "unique": "да",
+   "columns": "id"
+  },
+  {
+   "table": "documents",
+   "name": "uq_documents_number",
+   "unique": "да",
+   "columns": "number"
+  },
+  {
+   "table": "documents",
+   "name": "uq_documents_order_type",
+   "unique": "да",
+   "columns": "order_id, doc_type"
+  },
+  {
+   "table": "inventories",
+   "name": "fk_inv_user",
+   "unique": "нет",
+   "columns": "created_by"
+  },
+  {
+   "table": "inventories",
+   "name": "PRIMARY",
+   "unique": "да",
+   "columns": "id"
+  },
+  {
+   "table": "inventory_items",
+   "name": "fk_ii_part",
+   "unique": "нет",
+   "columns": "part_id"
+  },
+  {
+   "table": "inventory_items",
+   "name": "PRIMARY",
+   "unique": "да",
+   "columns": "id"
+  },
+  {
+   "table": "inventory_items",
+   "name": "uq_ii_part",
+   "unique": "да",
+   "columns": "inventory_id, part_id"
+  },
+  {
+   "table": "order_completeness",
+   "name": "fk_oc_item",
+   "unique": "нет",
+   "columns": "item_id"
+  },
+  {
+   "table": "order_completeness",
+   "name": "PRIMARY",
+   "unique": "да",
+   "columns": "order_id, item_id"
+  },
+  {
+   "table": "order_status_history",
+   "name": "fk_osh_status",
+   "unique": "нет",
+   "columns": "status_id"
+  },
+  {
+   "table": "order_status_history",
+   "name": "fk_osh_user",
+   "unique": "нет",
+   "columns": "changed_by"
+  },
+  {
+   "table": "order_status_history",
+   "name": "ix_osh_order",
+   "unique": "нет",
+   "columns": "order_id, changed_at"
+  },
+  {
+   "table": "order_status_history",
+   "name": "PRIMARY",
+   "unique": "да",
+   "columns": "id"
+  },
+  {
+   "table": "order_statuses",
+   "name": "PRIMARY",
+   "unique": "да",
+   "columns": "id"
+  },
+  {
+   "table": "order_statuses",
+   "name": "uq_order_statuses_code",
+   "unique": "да",
+   "columns": "code"
+  },
+  {
+   "table": "order_works",
+   "name": "fk_ow_master",
+   "unique": "нет",
+   "columns": "master_id"
+  },
+  {
+   "table": "order_works",
+   "name": "fk_ow_order",
+   "unique": "нет",
+   "columns": "order_id"
+  },
+  {
+   "table": "order_works",
+   "name": "fk_ow_service",
+   "unique": "нет",
+   "columns": "service_id"
+  },
+  {
+   "table": "order_works",
+   "name": "PRIMARY",
+   "unique": "да",
+   "columns": "id"
+  },
+  {
+   "table": "orders",
+   "name": "fk_orders_client",
+   "unique": "нет",
+   "columns": "client_id"
+  },
+  {
+   "table": "orders",
+   "name": "fk_orders_device",
+   "unique": "нет",
+   "columns": "device_id"
+  },
+  {
+   "table": "orders",
+   "name": "fk_orders_master",
+   "unique": "нет",
+   "columns": "master_id"
+  },
+  {
+   "table": "orders",
+   "name": "fk_orders_receptionist",
+   "unique": "нет",
+   "columns": "receptionist_id"
+  },
+  {
+   "table": "orders",
+   "name": "fk_orders_status",
+   "unique": "нет",
+   "columns": "status_id"
+  },
+  {
+   "table": "orders",
+   "name": "ix_orders_created",
+   "unique": "нет",
+   "columns": "created_at"
+  },
+  {
+   "table": "orders",
+   "name": "PRIMARY",
+   "unique": "да",
+   "columns": "id"
+  },
+  {
+   "table": "part_movements",
+   "name": "fk_pm_order",
+   "unique": "нет",
+   "columns": "order_id"
+  },
+  {
+   "table": "part_movements",
+   "name": "fk_pm_user",
+   "unique": "нет",
+   "columns": "user_id"
+  },
+  {
+   "table": "part_movements",
+   "name": "ix_pm_part_date",
+   "unique": "нет",
+   "columns": "part_id, created_at"
+  },
+  {
+   "table": "part_movements",
+   "name": "PRIMARY",
+   "unique": "да",
+   "columns": "id"
+  },
+  {
+   "table": "part_reservations",
+   "name": "fk_pr_issued",
+   "unique": "нет",
+   "columns": "issued_by"
+  },
+  {
+   "table": "part_reservations",
+   "name": "fk_pr_order",
+   "unique": "нет",
+   "columns": "order_id"
+  },
+  {
+   "table": "part_reservations",
+   "name": "fk_pr_part",
+   "unique": "нет",
+   "columns": "part_id"
+  },
+  {
+   "table": "part_reservations",
+   "name": "fk_pr_requested",
+   "unique": "нет",
+   "columns": "requested_by"
+  },
+  {
+   "table": "part_reservations",
+   "name": "ix_pr_status",
+   "unique": "нет",
+   "columns": "status"
+  },
+  {
+   "table": "part_reservations",
+   "name": "PRIMARY",
+   "unique": "да",
+   "columns": "id"
+  },
+  {
+   "table": "parts",
+   "name": "PRIMARY",
+   "unique": "да",
+   "columns": "id"
+  },
+  {
+   "table": "parts",
+   "name": "uq_parts_sku",
+   "unique": "да",
+   "columns": "sku"
+  },
+  {
+   "table": "payments",
+   "name": "fk_pay_order",
+   "unique": "нет",
+   "columns": "order_id"
+  },
+  {
+   "table": "payments",
+   "name": "fk_pay_user",
+   "unique": "нет",
+   "columns": "received_by"
+  },
+  {
+   "table": "payments",
+   "name": "PRIMARY",
+   "unique": "да",
+   "columns": "id"
+  },
+  {
+   "table": "roles",
+   "name": "PRIMARY",
+   "unique": "да",
+   "columns": "id"
+  },
+  {
+   "table": "roles",
+   "name": "uq_roles_code",
+   "unique": "да",
+   "columns": "code"
+  },
+  {
+   "table": "services",
+   "name": "PRIMARY",
+   "unique": "да",
+   "columns": "id"
+  },
+  {
+   "table": "services",
+   "name": "uq_services_name",
+   "unique": "да",
+   "columns": "name"
+  },
+  {
+   "table": "users",
+   "name": "fk_users_role",
+   "unique": "нет",
+   "columns": "role_id"
+  },
+  {
+   "table": "users",
+   "name": "PRIMARY",
+   "unique": "да",
+   "columns": "id"
+  },
+  {
+   "table": "users",
+   "name": "uq_users_email",
+   "unique": "да",
+   "columns": "email"
+  },
+  {
+   "table": "users",
+   "name": "uq_users_phone",
+   "unique": "да",
+   "columns": "phone"
+  }
+ ]
+}

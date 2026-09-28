@@ -1,0 +1,312 @@
+[
+ {
+  "name": "ServiceDesk.Tests.CostCalculatorTests.DueAfterPartialPayment",
+  "outcome": "Passed",
+  "ms": "00:00:00.0059571"
+ },
+ {
+  "name": "ServiceDesk.Tests.WarehouseServiceTests.ReserveWhenEnoughStock",
+  "outcome": "Passed",
+  "ms": "00:00:00.1211007"
+ },
+ {
+  "name": "ServiceDesk.Tests.LoginLockTests.PasswordPolicy(password: \"onlyletters\", ok: False)",
+  "outcome": "Passed",
+  "ms": "00:00:00.0002196"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderServiceTests.CreateOrderWritesHistoryAndReceipt",
+  "outcome": "Passed",
+  "ms": "00:00:00.0177277"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.ForbiddenTransition(from: \"accepted\", to: \"diagnostics\", role: \"receptionist\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000058"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.ForbiddenTransition(from: \"in_work\", to: \"cancelled\", role: \"receptionist\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000023"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.AllowedTransition(from: \"accepted\", to: \"diagnostics\", role: \"master\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000074"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderServiceTests.WarrantyOrderIsFree",
+  "outcome": "Passed",
+  "ms": "00:00:01.4591241"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.WarrantyOrderSkipsApproval",
+  "outcome": "Passed",
+  "ms": "00:00:00.0001097"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.ForbiddenTransition(from: \"issued\", to: \"cancelled\", role: \"receptionist\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000074"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.AllowedTransition(from: \"ready\", to: \"issued\", role: \"receptionist\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0002307"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.ForbiddenTransition(from: \"ready\", to: \"issued\", role: \"master\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000019"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderServiceTests.InvalidTransitionIs409",
+  "outcome": "Passed",
+  "ms": "00:00:00.0267659"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderServiceTests.ClientRejectCancelsAndReleasesReserve",
+  "outcome": "Passed",
+  "ms": "00:00:00.0299829"
+ },
+ {
+  "name": "ServiceDesk.Tests.LoginLockTests.PasswordPolicy(password: \"short1\", ok: False)",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000037"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderServiceTests.ApprovalRequiresDiagnosisAndWorks",
+  "outcome": "Passed",
+  "ms": "00:00:00.0175352"
+ },
+ {
+  "name": "ServiceDesk.Tests.LoginLockTests.PhoneNormalize(input: \"8 (900) 123-45-67\", expected: \"+79001234567\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000180"
+ },
+ {
+  "name": "ServiceDesk.Tests.CostCalculatorTests.EmptyOrderCostsZero",
+  "outcome": "Passed",
+  "ms": "00:00:00.0024308"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderServiceTests.ShortageMovesToWaitingPartsAndReceiptReturnsToWork",
+  "outcome": "Passed",
+  "ms": "00:00:00.0634422"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderServiceTests.FullRepairCycle",
+  "outcome": "Passed",
+  "ms": "00:00:00.0769225"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.AllowedTransition(from: \"cancelled\", to: \"issued\", role: \"receptionist\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000015"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.Overdue",
+  "outcome": "Passed",
+  "ms": "00:00:00.0002626"
+ },
+ {
+  "name": "ServiceDesk.Tests.CostCalculatorTests.WarrantyIsFree",
+  "outcome": "Passed",
+  "ms": "00:00:00.0001168"
+ },
+ {
+  "name": "ServiceDesk.Tests.CostCalculatorTests.IssueRequiresFullPayment(total: 3200, paid: 0, warranty: True, expected: True)",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000052"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.AllowedTransition(from: \"diagnostics\", to: \"approval\", role: \"master\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000018"
+ },
+ {
+  "name": "ServiceDesk.Tests.LoginLockTests.LocksAfterFiveFailures",
+  "outcome": "Passed",
+  "ms": "00:00:00.0008473"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.IssuedHasNoNextStatuses",
+  "outcome": "Passed",
+  "ms": "00:00:00.0017103"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.ForbiddenTransition(from: \"in_work\", to: \"ready\", role: \"receptionist\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0003651"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.AllowedTransition(from: \"waiting_parts\", to: \"in_work\", role: \"master\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000018"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.ForbiddenTransition(from: \"accepted\", to: \"diagnostics\", role: \"storekeeper\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000020"
+ },
+ {
+  "name": "ServiceDesk.Tests.LoginLockTests.PhoneNormalize(input: \"9001234567\", expected: \"+79001234567\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0088048"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.AllowedTransition(from: \"in_work\", to: \"ready\", role: \"master\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000016"
+ },
+ {
+  "name": "ServiceDesk.Tests.LoginLockTests.PasswordPolicy(password: \"12345678\", ok: False)",
+  "outcome": "Passed",
+  "ms": "00:00:00.0004975"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.ForbiddenTransition(from: \"approval\", to: \"in_work\", role: \"master\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000022"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.ForbiddenTransition(from: \"diagnostics\", to: \"approval\", role: \"client\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000101"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.AllowedTransition(from: \"accepted\", to: \"cancelled\", role: \"receptionist\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000020"
+ },
+ {
+  "name": "ServiceDesk.Tests.LoginLockTests.PhoneNormalize(input: \"+7 900 123 45 67\", expected: \"+79001234567\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000076"
+ },
+ {
+  "name": "ServiceDesk.Tests.LoginLockTests.PasswordPolicy(password: \"Client2026\", ok: True)",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000087"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderServiceTests.OverpaymentRejected",
+  "outcome": "Passed",
+  "ms": "00:00:00.0191512"
+ },
+ {
+  "name": "ServiceDesk.Tests.WarehouseServiceTests.IssueWritesOffStockAndJournal",
+  "outcome": "Passed",
+  "ms": "00:00:00.0498648"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.MasterAllowedFromInWork",
+  "outcome": "Passed",
+  "ms": "00:00:00.0096215"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.SystemMovesOrderAfterPartsArrive",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000485"
+ },
+ {
+  "name": "ServiceDesk.Tests.LoginLockTests.PhoneNormalize(input: \"12345\", expected: null)",
+  "outcome": "Passed",
+  "ms": "00:00:00.0003775"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.AllowedTransition(from: \"diagnostics\", to: \"cancelled\", role: \"receptionist\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000019"
+ },
+ {
+  "name": "ServiceDesk.Tests.CostCalculatorTests.DueNeverNegative",
+  "outcome": "Passed",
+  "ms": "00:00:00.0001551"
+ },
+ {
+  "name": "ServiceDesk.Tests.WarehouseServiceTests.InventoryCorrectsStock",
+  "outcome": "Passed",
+  "ms": "00:00:01.0548549"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderServiceTests.CreateOrderRegistersNewClient",
+  "outcome": "Passed",
+  "ms": "00:00:00.0273060"
+ },
+ {
+  "name": "ServiceDesk.Tests.LoginLockTests.SuccessResetsCounter",
+  "outcome": "Passed",
+  "ms": "00:00:00.0026300"
+ },
+ {
+  "name": "ServiceDesk.Tests.WarehouseServiceTests.BelowMinimumFlag",
+  "outcome": "Passed",
+  "ms": "00:00:00.0482021"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderServiceTests.AccessByRole",
+  "outcome": "Passed",
+  "ms": "00:00:00.1056918"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.AllowedTransition(from: \"in_work\", to: \"waiting_parts\", role: \"master\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000015"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderServiceTests.CreateOrderWithoutNameForUnknownPhoneFails",
+  "outcome": "Passed",
+  "ms": "00:00:00.0143625"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.AllowedTransition(from: \"approval\", to: \"waiting_parts\", role: \"client\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000018"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.ForbiddenTransition(from: \"issued\", to: \"in_work\", role: \"master\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0001943"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.AllowedTransition(from: \"approval\", to: \"in_work\", role: \"client\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000015"
+ },
+ {
+  "name": "ServiceDesk.Tests.CostCalculatorTests.IssueRequiresFullPayment(total: 0, paid: 0, warranty: False, expected: True)",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000050"
+ },
+ {
+  "name": "ServiceDesk.Tests.WarehouseServiceTests.InventoryBelowReservedRejected",
+  "outcome": "Passed",
+  "ms": "00:00:00.0251494"
+ },
+ {
+  "name": "ServiceDesk.Tests.CostCalculatorTests.TotalIsWorksPlusParts",
+  "outcome": "Passed",
+  "ms": "00:00:00.0007861"
+ },
+ {
+  "name": "ServiceDesk.Tests.CostCalculatorTests.IssueRequiresFullPayment(total: 3200, paid: 3200, warranty: False, expected: True)",
+  "outcome": "Passed",
+  "ms": "00:00:00.0108067"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.ForbiddenTransition(from: \"accepted\", to: \"ready\", role: \"master\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0000087"
+ },
+ {
+  "name": "ServiceDesk.Tests.CostCalculatorTests.IssueRequiresFullPayment(total: 3200, paid: 3000, warranty: False, expected: False)",
+  "outcome": "Passed",
+  "ms": "00:00:00.0003297"
+ },
+ {
+  "name": "ServiceDesk.Tests.OrderWorkflowTests.AllowedTransition(from: \"approval\", to: \"cancelled\", role: \"client\")",
+  "outcome": "Passed",
+  "ms": "00:00:00.0088083"
+ }
+]
