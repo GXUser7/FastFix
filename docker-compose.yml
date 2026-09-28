@@ -1,0 +1,74 @@
+# ИС «СервисДеск» — серверная часть. Запуск: docker compose up -d --build
+name: servicedesk
+
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: servicedesk
+      MYSQL_USER: servicedesk
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      TZ: Europe/Moscow
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci", "--default-time-zone=+03:00"]
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+  api:
+    build:
+      context: .
+      dockerfile: src/ServiceDesk.Api/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      ConnectionStrings__Default: "Server=db;Port=3306;Database=servicedesk;User=servicedesk;Password=${DB_PASSWORD};CharSet=utf8mb4"
+      Jwt__Key: ${JWT_KEY}
+      Cors__Origins__0: "http://localhost:8088"
+      Urls: "http://+:8080"
+    ports:
+      - "5080:8080"
+
+  web:
+    build:
+      context: ./web
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      - "8088:80"
+
+  # ежедневная резервная копия БД, хранение 30 дней
+  backup:
+    image: mysql:8.0
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      MYSQL_PWD: ${MYSQL_ROOT_PASSWORD}
+      TZ: Europe/Moscow
+    volumes:
+      - ./backups:/backups
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        while true; do
+          f=/backups/servicedesk_$$(date +%F_%H%M).sql.gz
+          mysqldump -h db -uroot --single-transaction --routines servicedesk | gzip > "$$f" && echo "backup: $$f"
+          find /backups -name 'servicedesk_*.sql.gz' -mtime +30 -delete
+          sleep 86400
+        done
+
+volumes:
+  db_data:

@@ -1,0 +1,12 @@
+**/bin/
+**/obj/
+**/node_modules/
+**/appsettings.Local.json
+.env
+local/
+backups/
+docs/
+tests/
+web/dist/
+.git/
+.vs/
